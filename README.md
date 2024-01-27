@@ -13,7 +13,7 @@ Before running the tests, ensure you have the following installed:
 
 ## Installation
 
-- Clone the repository. Yes, you will need stuff the AI-generated .jpeg picture of the non-existing person allegedly filling the form with his fake personal data and the .crx file of an ad-blocking Chrome plugin (uBlock Origin, in case you are interested) helping the man along by killing nasty Google ads.
+- Clone the repository. Yes, you will need stuff like the AI-generated .jpeg picture of the non-existing person allegedly filling the form with his fake personal data and the .crx file of an ad-blocking Chrome plugin (uBlock Origin, in case you are interested) helping the man along by killing nasty Google ads.
 - Set up a virtual environment.
 - Install the requirements: `pip install -r requirements.txt`
 
