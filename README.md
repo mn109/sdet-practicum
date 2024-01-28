@@ -18,4 +18,5 @@ Before running the tests, ensure you have the following installed:
 - Install the requirements: `pip install -r requirements.txt`
 
 ## Running the tests
-Run the tests: `pytest test.py`
+Run the tests: `pytest test.py`.  
+Should the `ElementClickInterceptedException` occur, run the tests again: the adblock occasionally fails to clear the way.
