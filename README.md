@@ -19,4 +19,4 @@ Before running the tests, ensure you have the following installed:
 
 ## Running the tests
 Run the tests: `pytest test.py`.  
-Should the `ElementClickInterceptedException` occur, run the tests again: the adblock occasionally fails to clear the way.
+Should the `ElementClickInterceptedException` occur, run the tests again: the adblocker occasionally fails to clear the way.
