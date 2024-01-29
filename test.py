@@ -1,8 +1,9 @@
+import os
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import os
 
 
 # Page Object Class
@@ -29,7 +30,9 @@ class AutomationPracticeFormPage:
         self.driver.find_element(*locator).send_keys(text)
 
     def click_element(self, locator):
-        self.driver.execute_script("arguments[0].click();", self.driver.find_element(*locator))
+        self.driver.execute_script(
+            "arguments[0].click();", self.driver.find_element(*locator)
+        )
 
     def upload_file(self, locator, file_path):
         self.driver.find_element(*locator).send_keys(file_path)
@@ -38,7 +41,10 @@ class AutomationPracticeFormPage:
         self.driver.find_element(*self.DATE_OF_BIRTH_INPUT).click()
         self.driver.find_element(By.CSS_SELECTOR, f"option[value='{year}']").click()
         self.driver.find_element(By.CSS_SELECTOR, f"option[value='{month}']").click()
-        self.driver.find_element(By.CSS_SELECTOR, f"div.react-datepicker__day--0{day}:not(.react-datepicker__day--outside-month)").click()
+        self.driver.find_element(
+            By.CSS_SELECTOR,
+            f"div.react-datepicker__day--0{day}:not(.react-datepicker__day--outside-month)",
+        ).click()
 
     def submit_form(self):
         self.click_element(self.SUBMIT_BUTTON)
@@ -70,17 +76,26 @@ def test_form_submission():
     form_page.select_date_of_birth("1986", "8", "02")
 
     form_page.enter_text(form_page.SUBJECTS_INPUT, "Computer Science")
-    form_page.driver.find_element(*form_page.SUBJECTS_INPUT).send_keys(Keys.ARROW_DOWN, Keys.ENTER)
+    form_page.driver.find_element(*form_page.SUBJECTS_INPUT).send_keys(
+        Keys.ARROW_DOWN, Keys.ENTER
+    )
 
     current_dir = os.path.abspath(os.path.dirname(__file__))
     upload_file = os.path.join(current_dir, "johndoe.jpeg")
     form_page.upload_file(form_page.UPLOAD_PICTURE, upload_file)
 
-    form_page.enter_text(form_page.CURRENT_ADDRESS, "4986, Ramdwara Rd, Aram Bagh, Bharat Nagar, Paharganj")
+    form_page.enter_text(
+        form_page.CURRENT_ADDRESS,
+        "4986, Ramdwara Rd, Aram Bagh, Bharat Nagar, Paharganj",
+    )
     form_page.enter_text(form_page.STATE_FIELD, "NCR")
-    form_page.driver.find_element(*form_page.STATE_FIELD).send_keys(Keys.ARROW_DOWN, Keys.ENTER)
+    form_page.driver.find_element(*form_page.STATE_FIELD).send_keys(
+        Keys.ARROW_DOWN, Keys.ENTER
+    )
     form_page.enter_text(form_page.CITY_FIELD, "Delhi")
-    form_page.driver.find_element(*form_page.CITY_FIELD).send_keys(Keys.ARROW_DOWN, Keys.ENTER)
+    form_page.driver.find_element(*form_page.CITY_FIELD).send_keys(
+        Keys.ARROW_DOWN, Keys.ENTER
+    )
 
     form_page.submit_form()
 
@@ -93,7 +108,10 @@ def test_form_submission():
     assert form_page.get_table_data("Subjects") == "Computer Science"
     assert form_page.get_table_data("Hobbies") == ""
     assert form_page.get_table_data("Picture") == "johndoe.jpeg"
-    assert form_page.get_table_data("Address") == "4986, Ramdwara Rd, Aram Bagh, Bharat Nagar, Paharganj"
+    assert (
+        form_page.get_table_data("Address")
+        == "4986, Ramdwara Rd, Aram Bagh, Bharat Nagar, Paharganj"
+    )
     assert form_page.get_table_data("State and City") == "NCR Delhi"
 
     driver.quit()
