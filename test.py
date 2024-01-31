@@ -75,7 +75,7 @@ def test_form_submission():
     driver.get("https://demoqa.com/automation-practice-form")
 
     form_page = AutomationPracticeFormPage(driver)
-    form_page.give_consent_if_needed()  # Call the method to handle consent
+    form_page.give_consent_if_needed()
 
     form_page.enter_text(form_page.FIRST_NAME_FIELD, "John")
     form_page.enter_text(form_page.LAST_NAME_FIELD, "Doe")
