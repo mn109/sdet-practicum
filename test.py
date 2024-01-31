@@ -1,12 +1,12 @@
 import os
 
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 
-# Page Object Class
 class AutomationPracticeFormPage:
     def __init__(self, driver):
         self.driver = driver
@@ -24,8 +24,16 @@ class AutomationPracticeFormPage:
     STATE_FIELD = (By.ID, "react-select-3-input")
     CITY_FIELD = (By.ID, "react-select-4-input")
     SUBMIT_BUTTON = (By.ID, "submit")
+    CONSENT_BUTTON = (By.CLASS_NAME, "fc-cta-consent")
 
     # Methods
+    def give_consent_if_needed(self):
+        try:
+            consent_button = self.driver.find_element(*self.CONSENT_BUTTON)
+            consent_button.click()
+        except NoSuchElementException:
+            pass
+
     def enter_text(self, locator, text):
         self.driver.find_element(*locator).send_keys(text)
 
@@ -67,6 +75,7 @@ def test_form_submission():
     driver.get("https://demoqa.com/automation-practice-form")
 
     form_page = AutomationPracticeFormPage(driver)
+    form_page.give_consent_if_needed()  # Call the method to handle consent
 
     form_page.enter_text(form_page.FIRST_NAME_FIELD, "John")
     form_page.enter_text(form_page.LAST_NAME_FIELD, "Doe")
